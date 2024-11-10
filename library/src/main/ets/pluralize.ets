@@ -174,7 +174,7 @@ function checkWord(replaceMap: Map<string, string>,
  * @param  {boolean} inclusive Whether to prefix with the number (e.g. 3 ducks)
  * @return {string}
  */
-export default function pluralize(word: string, count: number, inclusive: boolean): string {
+export default function pluralize(word: string, count: number, inclusive: boolean = false): string {
   let pluralized = count === 1
     ? pluralize.singular(word) : pluralize.plural(word);
 
