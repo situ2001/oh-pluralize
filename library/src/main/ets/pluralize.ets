@@ -139,7 +139,7 @@ function replaceWord(
     }
     // Check against the replacement map for a direct word replacement.
     if (replaceMap.has(token)) {
-      return restoreCase(word, replaceMap[token]);
+      return restoreCase(word, replaceMap.get(token)!);
     }
     // Run all the rules against the word.
     return sanitizeWord(token, word, rules);
@@ -241,7 +241,6 @@ pluralize.addSingularRule = addSingularRule;
 
 const addUncountableRule = (word: string | RegExp) => {
   if (typeof word === 'string') {
-    // uncountables[word.toLowerCase()] = true;
     uncountables.set(word.toLowerCase(), true);
     return;
   }
