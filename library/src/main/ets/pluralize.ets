@@ -1,7 +1,10 @@
 // Rule storage - pluralize and singularize need to be run sequentially,
 // while other rules can be optimized using an object for instant lookups.
-const pluralRules: Array<[RegExp, string]> = [];
-const singularRules: Array<[RegExp, string]> = [];
+
+type Rule = [RegExp, string];
+
+const pluralRules: Array<Rule> = [];
+const singularRules: Array<Rule> = [];
 const uncountables: Map<string, boolean> = new Map<string, boolean>();
 const irregularPlurals: Map<string, string> = new Map<string, string>();
 const irregularSingles: Map<string, string> = new Map<string, string>();
@@ -74,7 +77,7 @@ function interpolate(str: string, captures: Array<string>) {
  * @param  {Array}  rule
  * @return {string}
  */
-function replace(word: string, rule: [RegExp, string]) {
+function replace(word: string, rule: Rule) {
   return word.replace(rule[0], (match, index: string, ...rest: string[]): string => {
     let result = interpolate(rule[1], [match, index, ...rest]); // TODO is the replaced argument correct?
     if (match === '') {
@@ -93,7 +96,7 @@ function replace(word: string, rule: [RegExp, string]) {
  * @param  {Array}    rules
  * @return {string}
  */
-function sanitizeWord(token: string, word: string, rules: Array<[RegExp, string]>): string {
+function sanitizeWord(token: string, word: string, rules: Array<Rule>): string {
   // Empty string or doesn't need fixing.
   // if (!token.length || uncountables.hasOwnProperty(token)) {
   if (!token.length || uncountables.has(token)) {
@@ -125,7 +128,7 @@ function sanitizeWord(token: string, word: string, rules: Array<[RegExp, string]
 function replaceWord(
   replaceMap: Map<string, string>,
   keepMap: Map<string, string>,
-  rules: Array<[RegExp, string]>
+  rules: Array<Rule>
 ) {
   return (word: string): string => {
     // Get the correct token and case restoration functions.
@@ -150,7 +153,7 @@ function replaceWord(
  */
 function checkWord(replaceMap: Map<string, string>,
   keepMap: Map<string, string>,
-  rules: Array<[RegExp, string]>,
+  rules: Array<Rule>,
   bool?: boolean) {
   return (word: string): boolean => {
     let token = word.toLowerCase();
