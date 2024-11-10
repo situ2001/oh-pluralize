@@ -15,7 +15,7 @@ const irregularSingles: Map<string, string> = new Map<string, string>();
  * @param  {(RegExp|string)} rule
  * @return {RegExp}
  */
-export function sanitizeRule(rule: string | RegExp) {
+function sanitizeRule(rule: string | RegExp) {
   if (typeof rule === 'string') {
     return new RegExp('^' + rule + '$', 'i');
   }
@@ -31,7 +31,7 @@ export function sanitizeRule(rule: string | RegExp) {
  * @param  {string}   token
  * @return {Function}
  */
-export function restoreCase(word: string, token: string) {
+function restoreCase(word: string, token: string) {
   // Tokens are an exact match.
   if (word === token) {
     return token;
@@ -79,7 +79,7 @@ function interpolate(str: string, captures: Array<string>) {
  */
 function replace(word: string, rule: Rule) {
   return word.replace(rule[0], (match, index: string, ...rest: string[]): string => {
-    let result = interpolate(rule[1], [match, index, ...rest]); // TODO is the replaced `argument` correct?
+    const result = interpolate(rule[1], [match, index, ...rest]); // TODO is the replaced `argument` correct?
     if (match === '') {
       const indexNum: number = Number(index);
       return restoreCase(word[indexNum - 1], result);
@@ -98,7 +98,6 @@ function replace(word: string, rule: Rule) {
  */
 function sanitizeWord(token: string, word: string, rules: Array<Rule>): string {
   // Empty string or doesn't need fixing.
-  // if (!token.length || uncountables.hasOwnProperty(token)) {
   if (!token.length || uncountables.has(token)) {
     return word;
   }
@@ -132,7 +131,7 @@ function replaceWord(
 ) {
   return (word: string): string => {
     // Get the correct token and case restoration functions.
-    let token = word.toLowerCase();
+    const token = word.toLowerCase();
     // Check against the keep object map.
     if (keepMap.has(token)) {
       return restoreCase(word, token);
@@ -154,7 +153,7 @@ function checkWord(replaceMap: Map<string, string>,
   rules: Array<Rule>,
   bool?: boolean) {
   return (word: string): boolean => {
-    let token = word.toLowerCase();
+    const token = word.toLowerCase();
     if (keepMap.has(token)) {
       return true;
     }
