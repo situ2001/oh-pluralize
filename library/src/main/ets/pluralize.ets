@@ -79,7 +79,7 @@ function interpolate(str: string, captures: Array<string>) {
  */
 function replace(word: string, rule: Rule) {
   return word.replace(rule[0], (match, index: string, ...rest: string[]): string => {
-    let result = interpolate(rule[1], [match, index, ...rest]); // TODO is the replaced argument correct?
+    let result = interpolate(rule[1], [match, index, ...rest]); // TODO is the replaced `argument` correct?
     if (match === '') {
       const indexNum: number = Number(index);
       return restoreCase(word[indexNum - 1], result);
@@ -134,12 +134,10 @@ function replaceWord(
     // Get the correct token and case restoration functions.
     let token = word.toLowerCase();
     // Check against the keep object map.
-    // if (keepMap.hasOwnProperty(token)) {
     if (keepMap.has(token)) {
       return restoreCase(word, token);
     }
     // Check against the replacement map for a direct word replacement.
-    // if (replaceMap.hasOwnProperty(token)) {
     if (replaceMap.has(token)) {
       return restoreCase(word, replaceMap[token]);
     }
@@ -158,11 +156,9 @@ function checkWord(replaceMap: Map<string, string>,
   return (word: string): boolean => {
     let token = word.toLowerCase();
     if (keepMap.has(token)) {
-      // if (keepMap.hasOwnProperty(token)) {
       return true;
     }
     if (replaceMap.has(token)) {
-      // if (replaceMap.hasOwnProperty(token)) {
       return false;
     }
     return sanitizeWord(token, token, rules) === token;
@@ -264,8 +260,6 @@ pluralize.addUncountableRule = addUncountableRule;
 const addIrregularRule = (single: string, plural: string) => {
   plural = plural.toLowerCase();
   single = single.toLowerCase();
-  // irregularSingles[single] = plural;
-  // irregularPlurals[plural] = single;
   irregularSingles.set(single, plural);
   irregularPlurals.set(plural, single);
 };
