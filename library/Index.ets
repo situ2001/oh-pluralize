@@ -1,1 +1,3 @@
-export { MainPage } from './src/main/ets/components/MainPage'
+export {
+  pluralize
+} from './src/main/ets/pluralize';
