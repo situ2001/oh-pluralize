@@ -369,8 +369,8 @@ pluralize.addIrregularRule = addIrregularRule;
   [/eaux$/i, ''],
   [/m[ae]n$/i, 'men'],
   ['thou', 'you']
-].forEach((rule): void => {
-  return pluralize.addPluralRule(rule[0], rule[1]);
+].forEach((rule: (string | RegExp)[]): void => {
+  return pluralize.addPluralRule(rule[0], rule[1] as string);
 });
 
 /**
@@ -402,8 +402,8 @@ pluralize.addIrregularRule = addIrregularRule;
   [/(child)ren$/i, ''],
   [/(eau)x?$/i, ''],
   [/men$/i, 'man']
-].forEach((rule): void => {
-  return pluralize.addSingularRule(rule[0], rule[1]);
+].forEach((rule: (string | RegExp)[]): void => {
+  return pluralize.addSingularRule(rule[0], rule[1] as string);
 });
 
 /**
