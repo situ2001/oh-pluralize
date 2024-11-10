@@ -1,14 +1,9 @@
 // Rule storage - pluralize and singularize need to be run sequentially,
 // while other rules can be optimized using an object for instant lookups.
-
 const pluralRules: Array<[RegExp, string]> = [];
-
 const singularRules: Array<[RegExp, string]> = [];
-
 const uncountables: Map<string, boolean> = new Map<string, boolean>();
-
 const irregularPlurals: Map<string, string> = new Map<string, string>();
-
 const irregularSingles: Map<string, string> = new Map<string, string>();
 
 /**
@@ -62,12 +57,13 @@ export function restoreCase(word: string, token: string) {
  * Interpolate a regexp string.
  *
  * @param  {string} str
- * @param  {Array}  args
+ * @param  {Array}  captures
  * @return {string}
  */
-export function interpolate(str: string, args: Array<any>) {
-  return str.replace(/\$(\d{1,2})/g, (match, index: number): string => {
-    return args[index] || '';
+function interpolate(str: string, captures: Array<string>) {
+  return str.replace(/\$(\d{1,2})/g, (match, index: string): string => {
+    const indexNum = Number(index);
+    return captures[indexNum] || '';
   });
 }
 
@@ -78,11 +74,12 @@ export function interpolate(str: string, args: Array<any>) {
  * @param  {Array}  rule
  * @return {string}
  */
-export function replace(word: string, rule: [RegExp, string]) {
-  return word.replace(rule[0], (match, index: number): string => {
-    let result = interpolate(rule[1], arguments);
+function replace(word: string, rule: [RegExp, string]) {
+  return word.replace(rule[0], (match, index: string, ...rest: string[]): string => {
+    let result = interpolate(rule[1], [match, index, ...rest]); // TODO is the replaced argument correct?
     if (match === '') {
-      return restoreCase(word[index - 1], result);
+      const indexNum: number = Number(index);
+      return restoreCase(word[indexNum - 1], result);
     }
     return restoreCase(match, result);
   });
@@ -96,7 +93,7 @@ export function replace(word: string, rule: [RegExp, string]) {
  * @param  {Array}    rules
  * @return {string}
  */
-export function sanitizeWord(token: string, word: string, rules: Array<[RegExp, string]>): string {
+function sanitizeWord(token: string, word: string, rules: Array<[RegExp, string]>): string {
   // Empty string or doesn't need fixing.
   // if (!token.length || uncountables.hasOwnProperty(token)) {
   if (!token.length || uncountables.has(token)) {
@@ -125,7 +122,7 @@ export function sanitizeWord(token: string, word: string, rules: Array<[RegExp, 
  * @param  {Array}    rules
  * @return {Function}
  */
-export function replaceWord(
+function replaceWord(
   replaceMap: Map<string, string>,
   keepMap: Map<string, string>,
   rules: Array<[RegExp, string]>
@@ -151,7 +148,7 @@ export function replaceWord(
 /**
  * Check if a word is part of the map.
  */
-export function checkWord(replaceMap: Map<string, string>,
+function checkWord(replaceMap: Map<string, string>,
   keepMap: Map<string, string>,
   rules: Array<[RegExp, string]>,
   bool?: boolean) {
@@ -177,7 +174,7 @@ export function checkWord(replaceMap: Map<string, string>,
  * @param  {boolean} inclusive Whether to prefix with the number (e.g. 3 ducks)
  * @return {string}
  */
-export function pluralize(word: string, count: number, inclusive: boolean): string {
+export default function pluralize(word: string, count: number, inclusive: boolean): string {
   let pluralized = count === 1
     ? pluralize.singular(word) : pluralize.plural(word);
 
