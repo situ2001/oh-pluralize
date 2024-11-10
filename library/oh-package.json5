@@ -1,9 +1,9 @@
 {
   "name": "pluralize",
   "version": "1.0.0",
-  "description": "Please describe the basic information.",
+  "description": "根据量词自动使用英文单词的单复数形式",
   "main": "Index.ets",
-  "author": "",
-  "license": "Apache-2.0",
+  "author": "situ2001",
+  "license": "MIT",
   "dependencies": {}
 }
