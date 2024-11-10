@@ -245,8 +245,8 @@ const addUncountableRule = (word: string | RegExp) => {
     return;
   }
   // Set singular and plural references for the word.
-  pluralize.addPluralRule(word, '');
-  pluralize.addSingularRule(word, '');
+  pluralize.addPluralRule(word, '$0');
+  pluralize.addSingularRule(word, '$0');
 }
 /**
  * Add an uncountable word rule.
