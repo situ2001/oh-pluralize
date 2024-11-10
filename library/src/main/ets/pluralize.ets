@@ -242,7 +242,8 @@ pluralize.addSingularRule = addSingularRule;
 
 const addUncountableRule = (word: string | RegExp) => {
   if (typeof word === 'string') {
-    uncountables[word.toLowerCase()] = true;
+    // uncountables[word.toLowerCase()] = true;
+    uncountables.set(word.toLowerCase(), true);
     return;
   }
   // Set singular and plural references for the word.
@@ -260,8 +261,10 @@ pluralize.addUncountableRule = addUncountableRule;
 const addIrregularRule = (single: string, plural: string) => {
   plural = plural.toLowerCase();
   single = single.toLowerCase();
-  irregularSingles[single] = plural;
-  irregularPlurals[plural] = single;
+  // irregularSingles[single] = plural;
+  // irregularPlurals[plural] = single;
+  irregularSingles.set(single, plural);
+  irregularPlurals.set(plural, single);
 };
 /**
  * Add an irregular word definition.
