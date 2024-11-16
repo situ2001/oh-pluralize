@@ -1,5 +1,4 @@
 import pluralize from 'pluralize';
-import { LengthUnit, MeasureText } from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -20,7 +19,7 @@ struct Index {
 
   build() {
     Flex({ direction: FlexDirection.Column, justifyContent: FlexAlign.SpaceAround, alignItems: ItemAlign.Center }) {
-      Text(this.count + " " + pluralize(this.name, this.count))
+      Text(pluralize(this.name, this.count, true))
         .id('Message')
         .fontSize(48)
         .fontWeight(FontWeight.Bold)
@@ -67,8 +66,6 @@ struct Index {
 @Component
 struct CustomTextInputDialog {
   @State inputValue: string = "";
-  // @Link textValue: string
-  // @Link inputValue: string
   controller?: CustomDialogController
   cancel: () => void = () => {
   }
@@ -94,7 +91,6 @@ struct CustomTextInputDialog {
         Button('confirm')
           .onClick(() => {
             if (this.controller != undefined) {
-              // this.inputValue = this.textValue
               this.controller.close()
               this.confirm(this.inputValue);
             }
