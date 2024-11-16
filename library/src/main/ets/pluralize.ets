@@ -167,12 +167,14 @@ function checkWord(replaceMap: Map<string, string>,
 /**
  * Pluralize or singularize a word based on the passed in count.
  *
- * @param  {string}  word      The word to pluralize
- * @param  {number}  count     How many of the word exist
- * @param  {boolean} inclusive Whether to prefix with the number (e.g. 3 ducks)
+ * 基于传入的数量对单词进行复数化或单数化.
+ *
+ * @param  {string}  word      The word to pluralize 要进行单/复数化的单词
+ * @param  {number}  count     How many of the word exist 该单词的量词数量
+ * @param  {boolean} inclusive Whether to prefix with the number (e.g. 3 ducks) 是否要将数量添加到单词的前面(比如 3 ducks)
  * @return {string}
  */
-export default function pluralize(word: string, count: number, inclusive: boolean = false): string {
+export default function pluralize(word: string, count: number = 0, inclusive: boolean = false): string {
   let pluralized = count === 1
     ? pluralize.singular(word) : pluralize.plural(word);
 
