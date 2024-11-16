@@ -1,7 +1,7 @@
 {
   "name": "pluralize",
   "version": "1.0.0",
-  "description": "根据量词自动使用英文单词的单复数形式",
+  "description": "一个用于 OpenHarmony 的对英文单词进行单数化或复数化的工具库",
   "main": "Index.ets",
   "author": "situ2001",
   "license": "MIT",
