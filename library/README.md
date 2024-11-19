@@ -4,6 +4,12 @@ A pluralize library for OpenHarmony to convert English words between singular an
 
 一个用于 OpenHarmony 的对英文单词进行单数化或复数化的工具库
 
+## Installation
+
+```shell
+ohpm i pluralize
+```
+
 ## Common Usage
 
 ```javascript
