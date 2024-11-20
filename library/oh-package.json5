@@ -4,6 +4,9 @@
   "description": "一个用于 OpenHarmony 的对英文单词进行单数化或复数化的工具库",
   "main": "Index.ets",
   "author": "situ2001",
+  "repository": "https://github.com/situ2001/oh-pluralize",
+  "homepage": "https://situ2001.com",
+  "keywords": ["i18n", "pluralize"],
   "license": "MIT",
   "dependencies": {}
 }
