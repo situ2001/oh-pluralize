@@ -4,6 +4,10 @@ A pluralize library for OpenHarmony to convert English words between singular an
 
 一个用于 OpenHarmony 的对英文单词进行单数化或复数化的工具库
 
+Example: https://github.com/situ2001/oh-pluralize
+
+示例: clone https://github.com/situ2001/oh-pluralize 后用 DevEco-Studio 打开并运行即可
+
 ## Installation
 
 ```shell
